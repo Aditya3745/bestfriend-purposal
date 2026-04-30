@@ -3,6 +3,9 @@
 ## Description
 This project is designed to create a fun and engaging proposal for your best friend. It incorporates interactive features that allow users to customize their proposals and share them easily.
 
+##Preview 
+https://bestfriend-purposal-bio7.vercel.app/
+
 ## Features
 - User-friendly interface
 - Customizable templates
