@@ -6,86 +6,87 @@
     <title>Best Friend Proposal</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #f6d9e7, #e1b1c8);
-            margin: 0;
-            padding: 20px;
+            background: linear-gradient(45deg, #ff6fb6, #ff6b6b);
+            font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
-        h1 {
+        .card {
+            width: 300px;
+            margin: 100px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            color: #d10024;
-            margin: 20px;
+            padding: 20px;
+            animation: fadeIn 1s;
         }
-        #floating-hearts {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .no-button {
+            position: fixed;
+            width: 100px;
+            height: 50px;
+            background-color: #ff6b3f;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+        }
+        .no-button:hover {
+            animation: escape 0.5s forwards;
+        }
+        @keyframes escape {
+            position: fixed;
+            top: calc(100vh * Math.random());
+            left: calc(100vw * Math.random());
+        }
+        .confetti {
             position: absolute;
+            top: 0;
+            left: 0;
             pointer-events: none;
         }
         .heart {
             position: absolute;
-            background: url('https://img.icons8.com/ios-filled/50/ff4d4d/heart.png') no-repeat;
-            height: 50px;
-            width: 50px;
+            width: 20px;
+            height: 20px;
+            background: red;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: float 3s infinite ease-in-out;
         }
-        button {
-            border: none;
-            background-color: #d10024;
-            color: white;
-            padding: 15px 25px;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
-        }
-        button:hover {
-            transform: scale(1.05);
-        }
-        .no-button {
-            position: relative;
-            overflow: hidden;
-        }
-        .no-button:active {
-            animation: escape 0.5s forwards;
-        }
-        @keyframes escape {
-            transform: translate(-100px, -100px);
-        }
-        @keyframes move {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <h1>Will You Be My Best Friend?</h1>
-    <div style="text-align:center;">
-        <button onclick="message('Yes!')">Yes</button>
-        <button class="no-button" onclick="message('No!')">No</button>
+    <div class="card">
+        <h1>Will You Be My Best Friend?</h1>
+        <button class="no-button">No</button>
     </div>
-    <div id="floating-hearts"></div>
     <script>
-        function message(response) {
-            if(response === 'Yes!') {
-                alert('Yay! I knew you would! ❤️');
-            } else {
-                alert('Oh no! 😢');
-            }
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            document.body.appendChild(confetti);
+            // Add logic to create and animate confetti
         }
+        createConfetti();
 
-        function createHeart() {
+        // Create floating hearts
+        for (let i = 0; i < 20; i++) {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.style.left = Math.random() * window.innerWidth + 'px';
-            heart.style.animation = `move ${Math.random() * 5 + 2}s linear forwards`;
-            document.getElementById('floating-hearts').appendChild(heart);
-
-            heart.addEventListener('animationend', () => {
-                heart.remove();
-            });
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(heart);
         }
-
-        setInterval(createHeart, 500);
+        
     </script>
 </body>
 </html>
