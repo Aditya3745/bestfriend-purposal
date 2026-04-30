@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Friend Proposal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #f6d9e7, #e1b1c8);
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+            color: #d10024;
+            margin: 20px;
+        }
+        #floating-hearts {
+            position: absolute;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            background: url('https://img.icons8.com/ios-filled/50/ff4d4d/heart.png') no-repeat;
+            height: 50px;
+            width: 50px;
+        }
+        button {
+            border: none;
+            background-color: #d10024;
+            color: white;
+            padding: 15px 25px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .no-button {
+            position: relative;
+            overflow: hidden;
+        }
+        .no-button:active {
+            animation: escape 0.5s forwards;
+        }
+        @keyframes escape {
+            transform: translate(-100px, -100px);
+        }
+        @keyframes move {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100vh); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will You Be My Best Friend?</h1>
+    <div style="text-align:center;">
+        <button onclick="message('Yes!')">Yes</button>
+        <button class="no-button" onclick="message('No!')">No</button>
+    </div>
+    <div id="floating-hearts"></div>
+    <script>
+        function message(response) {
+            if(response === 'Yes!') {
+                alert('Yay! I knew you would! ❤️');
+            } else {
+                alert('Oh no! 😢');
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animation = `move ${Math.random() * 5 + 2}s linear forwards`;
+            document.getElementById('floating-hearts').appendChild(heart);
+
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
